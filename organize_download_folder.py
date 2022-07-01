@@ -96,6 +96,6 @@ def sort_files(path):
     
 
 if __name__ == "__main__":
-    sort_files(r"C:\Users\Onur Sedef\Downloads")
+    sort_files(r"PLEASE ENTER YOUR PATH TO DOWNLOAD FOLDER")
     print("\033[1;31;40m***********************************")
     print("\033[1;35;40mAll Files Moved to Their Destined Folder.")
