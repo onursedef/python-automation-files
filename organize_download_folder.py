@@ -1,5 +1,4 @@
 import os
-from pydoc import doc
 import shutil
 
 from os import listdir
@@ -8,14 +7,14 @@ from os.path import isfile, join
 def sort_files(path):
 
     files = [f for f in listdir(path) if isfile (join(path, f))]
-    exe_files = []
-    img_files = []
-    vid_files = []
-    doc_files = []
-    code_files = []
-    comp_files = []
-    sound_files = []
-    others = []
+
+    executable_ext = ['.exe', '.msi']
+    image_ext = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.svg']
+    video_ext = ['.mp4', '.mkv', '.avi', '.mov', '.wmv', '.flv', '.mpg', '.mpeg']
+    document_ext = ['.doc', '.docx', '.odt', '.xls', '.xlsx', '.ppt', '.pptx', '.pdf', '.txt', '.rtf']
+    code_ext = ['.c', '.cpp', '.h', '.hpp', '.java', '.js', '.json', '.py', '.rb', '.sh', '.sql', '.xml', '.yml', '.html', '.html', '.css', '.scss', '.sass', '.less', '.cfm', '.cfml', '.ts', '.tsx', '.jsx', '.mod', '.go', '.rs']
+    sound_ext = ['.aif', '.aiff', '.flac', '.mp3', '.ogg', '.wav']
+    compressed_ext = ['.7z', '.zip', '.rar', '.tar', '.gz', '.bz2', '.xz', '.z', '.tar.gz', '.tar.bz2', '.tar.xz', '.tar.z', '.tar.7z']
 
     if os.path.isdir(f"{path}\Images") == False:
         os.mkdir(f"{path}\Images")
@@ -34,68 +33,49 @@ def sort_files(path):
     elif os.path.isdir(f"{path}\Others") == False:
         os.mkdir(f"{path}\Others")
     
-    
-    for f in files:
-        if f.endswith(".png") | f.endswith(".jpeg") | f.endswith(".jpg") | f.endswith(".gif") | f.endswith(".bmp") | f.endswith(".tiff") | f.endswith(".webp") | f.endswith(".svg"):
-            img_files.append(f)
-        elif f.endswith(".exe") | f.endswith(".msi"):
-            exe_files.append(f)
-        elif f.endswith(".mov") | f.endswith(".mp4") | f.endswith(".wmv") | f.endswith(".avi") | f.endswith(".flv") | f.endswith(".webm") | f.endswith(".mkv"):
-            vid_files.append(f)
-        elif f.endswith(".docx") | f.endswith(".doc") | f.endswith(".pdf") | f.endswith(".odt") | f.endswith(".xls") | f.endswith(".xlsx") | f.endswith(".ppt") | f.endswith(".pptx") | f.endswith(".txt"):
-            doc_files.append(f)
-        elif f.endswith(".py") | f.endswith(".ipynb") | f.endswith(".js") | f.endswith(".json") | f.endswith(".java") | f.endswith(".html") | f.endswith(".htm") | f.endswith(".cfm") | f.endswith(".cfml") | f.endswith(".css") | f.endswith(".sass") | f.endswith(".scss") | f.endswith(".jsx") | f.endswith(".ts") | f.endswith(".tsx"):
-            code_files.append(f)
-        elif f.endswith(".7z") | f.endswith(".arj") | f.endswith(".rar") | f.endswith(".zip") | f.endswith(".tar.gz") | f.endswith(".tar.xz"):
-            comp_files.append(f)
-        elif f.endswith(".aif") | f.endswith(".cda") | f.endswith(".mid") | f.endswith(".midi") | f.endswith(".mp3") | f.endswith(".mpa") | f.endswith(".ogg") | f.endswith(".wav") | f.endswith(".wma") | f.endswith(".wpl"):
-            sound_files.append(f)
+    for i in files:
+        if i.endswith(tuple(executable_ext)):
+            src_path=path + '\\' + i
+            dest_path=path + "\Executables"
+            shutil.move(src_path, dest_path)
+            print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Executables")
+        elif i.endswith(tuple(image_ext)):
+            src_path=path + '\\' + i
+            dest_path=path + "\Images"
+            shutil.move(src_path, dest_path)
+            print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Images")
+        elif i.endswith(tuple(video_ext)):
+            src_path=path + '\\' + i
+            dest_path=path + "\Videos"
+            shutil.move(src_path, dest_path)
+            print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Videos")
+        elif i.endswith(tuple(document_ext)):
+            src_path=path + '\\' + i
+            dest_path=path + "\Documents"
+            shutil.move(src_path, dest_path)
+            print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Documents")
+        elif i.endswith(tuple(code_ext)):
+            src_path=path + '\\' + i
+            dest_path=path + "\Code Files"
+            shutil.move(src_path, dest_path)
+            print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Code Files")
+        elif i.endswith(tuple(sound_ext)):
+            src_path=path + '\\' + i
+            dest_path=path + "\Sounds"
+            shutil.move(src_path, dest_path)
+            print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Sounds")
+        elif i.endswith(tuple(compressed_ext)):
+            src_path=path + '\\' + i
+            dest_path=path + "\Compressed Files"
+            shutil.move(src_path, dest_path)
+            print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Compressed Files")
         else:
-            others.append(f)
-        
-    for file in exe_files:
-        src_path=path + '\\' + file
-        dest_path=path + "\Executables"
-        shutil.move(src_path, dest_path)
-        print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Executables")
-    for file in img_files:
-        src_path=path + '\\' + file
-        dest_path=path + "\Images"
-        shutil.move(src_path, dest_path)
-        print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Images")
-    for file in vid_files:
-        src_path=path + '\\' + file
-        dest_path=path + "\Videos"
-        shutil.move(src_path, dest_path)
-        print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Videos")
-    for file in doc_files:
-        src_path=path + '\\' + file
-        dest_path=path + "\Documents"
-        shutil.move(src_path, dest_path)
-        print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Documents")
-    for file in code_files:
-        src_path=path + '\\' + file
-        dest_path=path + r"\Code Files"
-        shutil.move(src_path, dest_path)
-        print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Code Files")
-    for file in comp_files:
-        src_path=path + '\\' + file
-        dest_path=path + r"\Compressed Files"
-        shutil.move(src_path, dest_path)
-        print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Compressed Files")
-    for file in sound_files:
-        src_path=path + '\\' + file
-        dest_path=path + "\Sounds"
-        shutil.move(src_path, dest_path)
-        print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Sounds")
-    for file in others:
-        src_path=path + '\\' + file
-        dest_path=path + "\Others"
-        shutil.move(src_path, dest_path)
-        print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Others")
-    
+            src_path=path + '\\' + i
+            dest_path=path + "\Others"
+            shutil.move(src_path, dest_path)
+            print(f"\033[1;32;40m{src_path}\033[1;36;40m >>>\033[1;34;40m Others")
 
 if __name__ == "__main__":
-    sort_files(r"PLEASE ENTER YOUR PATH TO DOWNLOAD FOLDER")
+    sort_files(r"PLEASE ENTER THE PATH OF THE FOLDER TO BE SORTED")
     print("\033[1;31;40m***********************************")
     print("\033[1;35;40mAll Files Moved to Their Destined Folder.")
